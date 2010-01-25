@@ -2,7 +2,7 @@ package com.thoughtworks.moneydroid.sms;
 
 import android.telephony.gsm.SmsMessage;
 
-public class MoneyDroidSmsMessage {
+public final class MoneyDroidSmsMessage {
 
 	private final SmsMessage sms;
 	
@@ -24,11 +24,11 @@ public class MoneyDroidSmsMessage {
 		this.sms = sms;
 	}
 	
-	public boolean isFromMyBank() {
+	public final boolean isFromMyBank() {
 		return SMS_SENDER.STANDARD_CHARTERED.isSenderOf(sms);
 	}
 
-	public boolean isAWithdrawalTransactionMessage() {
+	public final boolean isAWithdrawalTransactionMessage() {
 		return isFromMyBank() && sms.getDisplayMessageBody().startsWith("You have withdrawn");
 	}
 }
