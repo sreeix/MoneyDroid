@@ -28,7 +28,11 @@ public final class MoneyDroidSmsMessage {
 		return SMS_SENDER.STANDARD_CHARTERED.isSenderOf(sms);
 	}
 
-	public final boolean isAWithdrawalTransactionMessage() {
+	public final boolean isAWithdrawal() {
 		return isFromMyBank() && sms.getDisplayMessageBody().startsWith("You have withdrawn");
+	}
+
+	public final boolean isNotAWithdrawal() {
+		return !isAWithdrawal();
 	}
 }

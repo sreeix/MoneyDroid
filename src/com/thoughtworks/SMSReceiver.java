@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.thoughtworks.moneydroid.sms.ExpenseTracker;
 import com.thoughtworks.moneydroid.sms.SmsFactory;
+import com.thoughtworks.moneydroid.transaction.ExpenseTracker;
 
 public class SMSReceiver extends BroadcastReceiver {
 
