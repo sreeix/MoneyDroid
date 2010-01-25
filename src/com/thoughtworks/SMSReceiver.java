@@ -4,9 +4,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.telephony.gsm.SmsMessage;
 import android.util.Log;
-import android.widget.Toast;
+
+import com.thoughtworks.moneydroid.expenses.ExpenseTracker;
+import com.thoughtworks.moneydroid.sms.SmsFactory;
 
 public class SMSReceiver extends BroadcastReceiver {
 
@@ -18,22 +19,11 @@ public class SMSReceiver extends BroadcastReceiver {
 		if (bundle == null)
 			return;
 
-		final String str = makeSms(bundle);
-		Log.i("SMSAPP", str);
-	
-		Toast.makeText(ctx, str, Toast.LENGTH_SHORT).show();
+		new ExpenseTracker().newExpense(makeSms(bundle));
 
 	}
 
-	private String makeSms(Bundle bundle) {
-		Object[] pdus = (Object[]) bundle.get("pdus");
-		StringBuilder str = new StringBuilder();
-		
-		for (int i = 0; i < pdus.length; i++) {
-			SmsMessage sms = SmsMessage.createFromPdu((byte[]) pdus[i]);
-			str.append("SMS from " + sms.getOriginatingAddress()).append(" :").append(sms.getMessageBody().toString()).append("\n");
-		}
-		return str.toString();
+	private com.thoughtworks.moneydroid.sms.MoneyDroidSmsMessage makeSms(Bundle bundle) {
+		return SmsFactory.create((Object[]) bundle.get("pdus"));
 	}
-
 }
