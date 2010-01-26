@@ -1,5 +1,11 @@
 package com.thoughtworks.moneydroid.transaction;
 
-class NullTransaction implements Transaction{
+public class NullTransaction extends Transaction{
+
+	@Override
+	public String amount() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

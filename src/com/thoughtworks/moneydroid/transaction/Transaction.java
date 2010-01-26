@@ -1,5 +1,7 @@
 package com.thoughtworks.moneydroid.transaction;
 
-public interface Transaction {
+public abstract class Transaction {
+
+	public abstract String amount();
 
 }

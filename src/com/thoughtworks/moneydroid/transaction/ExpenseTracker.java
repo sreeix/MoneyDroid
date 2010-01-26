@@ -9,7 +9,7 @@ public class ExpenseTracker {
 		if(sms.isNotAWithdrawal())
 			return new NullTransaction();
 		
-		return new NullTransaction();
+		return sms.getTransaction();
 	}
 
 }
