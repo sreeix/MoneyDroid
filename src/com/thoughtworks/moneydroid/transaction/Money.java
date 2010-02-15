@@ -37,5 +37,4 @@ public class Money {
 		return String.valueOf(amount);
 	}
 
-	
 }
