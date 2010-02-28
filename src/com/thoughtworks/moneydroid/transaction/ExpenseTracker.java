@@ -1,13 +1,11 @@
 package com.thoughtworks.moneydroid.transaction;
 
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.net.Uri;
 import android.provider.BaseColumns;
 import android.util.Log;
 
-import com.thoughtworks.moneydroid.contentprovider.ExpenseTrackerContentProvider;
 import com.thoughtworks.moneydroid.sms.MoneyDroidSmsMessage;
 
 public class ExpenseTracker {
@@ -46,7 +44,6 @@ public class ExpenseTracker {
 	public Transaction newExpense(MoneyDroidSmsMessage sms) {
 
 		if (!sms.isPurchase()) {
-			Log.d("MessageSPAM", "Is not a purchase");
 			return new NullTransaction();
 		}
 

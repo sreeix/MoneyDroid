@@ -31,16 +31,12 @@ public final class MoneyDroidSmsMessage {
 	}
 	
 	public final boolean isFromMyBank() {
-		Log.d("MessageSPAM", sms.getDisplayOriginatingAddress());
-		Log.d("MessageSPAM", sms.getOriginatingAddress());
-		
 		boolean isFromMyBank = SMS_SENDER.STANDARD_CHARTERED.isSenderOf(sms) || SMS_SENDER.HACK_FOR_TESTING.isSenderOf(sms);
-		Log.d("MessageSPAM", String.format("is from my bank: %s", String.valueOf(isFromMyBank)));
 		return isFromMyBank;
 	}
 
 	public final boolean isAWithdrawal() {
-		return isFromMyBank() && sms.getDisplayMessageBody().startsWith("You have withdrawn");
+		return isFromMyBank() && sms.getMessageBody().startsWith("You have withdrawn");
 	}
 
 	public final boolean isNotAWithdrawal() {

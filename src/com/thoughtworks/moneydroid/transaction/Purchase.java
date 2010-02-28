@@ -1,16 +1,18 @@
 package com.thoughtworks.moneydroid.transaction;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import android.util.Log;
+import com.thoughtworks.moneydroid.contentprovider.ExpenseTrackerException;
 
 public class Purchase extends Transaction {
 
-	private BigDecimal debitedAmount;
-	private BigDecimal availableBalance;
+	private Number debitedAmount;
+	private Number availableBalance;
 	private Vendor vendor;
 	public Date date;
 
@@ -34,6 +36,7 @@ public class Purchase extends Transaction {
 	public static class Builder {
 
 		private static Purchase purchase;
+		private NumberFormat decimalFormat = new DecimalFormat("###,###");
 
 		public static Builder purchaseTransaction() {
 			purchase = new Purchase();
@@ -41,8 +44,12 @@ public class Purchase extends Transaction {
 		}
 
 		public Builder forAmount(String debitedAmount) {
-			purchase.debitedAmount = new BigDecimal(debitedAmount);
-			return this;
+			try {
+				purchase.debitedAmount = decimalFormat.parse(debitedAmount);
+				return this;
+			} catch (ParseException e) {
+				throw new ExpenseTrackerException(String.format("Failed to parse debited amount %s", debitedAmount));
+			}
 		}
 
 		public Purchase create() {
@@ -50,8 +57,12 @@ public class Purchase extends Transaction {
 		}
 
 		public Builder withAvailableBalance(String availableBalance) {
-			purchase.availableBalance = new BigDecimal(availableBalance);
-			return this;
+			try {
+				purchase.availableBalance = decimalFormat.parse(availableBalance);
+				return this;
+			} catch (ParseException e) {
+				throw new ExpenseTrackerException(String.format("Failed to parse available balance %s", availableBalance));
+			}
 		}
 
 		public Builder withVendor(Vendor vendor) {
@@ -61,8 +72,6 @@ public class Purchase extends Transaction {
 
 		public Builder on(String dateOfAvailableBalance) {
 			try {
-				Log.d("MessageSPAM", String.format("Date before trimming:%s",dateOfAvailableBalance));
-				Log.d("MessageSPAM", String.format("Date after trimming:%s",dateOfAvailableBalance.trim()));
 				purchase.date = new SimpleDateFormat("MMM dd yyyy hh:mm a z").parse(dateOfAvailableBalance.trim());
 			} catch (ParseException e) {
 				e.printStackTrace();

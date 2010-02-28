@@ -2,7 +2,6 @@ package com.thoughtworks.moneydroid.sms.handlers;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import com.thoughtworks.moneydroid.sms.MoneyDroidSmsMessage;
 import com.thoughtworks.moneydroid.transaction.NullTransaction;
 import com.thoughtworks.moneydroid.transaction.Purchase;
