@@ -2,7 +2,10 @@ package com.thoughtworks.moneydroid.transaction;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import android.util.Log;
 
 public class Purchase extends Transaction {
 
@@ -14,6 +17,7 @@ public class Purchase extends Transaction {
 	private Purchase() {
 	}
 
+	@Override
 	public Money availableBalance() {
 		return new Money(availableBalance.doubleValue());
 	}
@@ -21,6 +25,10 @@ public class Purchase extends Transaction {
 	@Override
 	public Money amount() {
 		return new Money(debitedAmount.doubleValue());
+	}
+
+	public Date date() {
+		return date;
 	}
 
 	public static class Builder {
@@ -53,11 +61,14 @@ public class Purchase extends Transaction {
 
 		public Builder on(String dateOfAvailableBalance) {
 			try {
-				purchase.date = java.text.DateFormat.getDateInstance().parse(dateOfAvailableBalance);
+				Log.d("MessageSPAM", String.format("Date before trimming:%s",dateOfAvailableBalance));
+				Log.d("MessageSPAM", String.format("Date after trimming:%s",dateOfAvailableBalance.trim()));
+				purchase.date = new SimpleDateFormat("MMM dd yyyy hh:mm a z").parse(dateOfAvailableBalance.trim());
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 			return this;
 		}
 	}
+
 }

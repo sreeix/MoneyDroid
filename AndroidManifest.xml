@@ -9,6 +9,10 @@
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" /> 
             </intent-filter> 
 	</receiver>
+	
+	<provider android:authorities="com.thoughtworks.moneydroid.provider.ExpenseTracker" android:name="com.thoughtworks.moneydroid.contentprovider.ExpenseTrackerContentProvider">
+		
+	</provider>
 
     </application>
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>

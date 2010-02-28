@@ -8,4 +8,10 @@ public class NullTransaction extends Transaction{
 		return null;
 	}
 
+	@Override
+	public Money availableBalance() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
