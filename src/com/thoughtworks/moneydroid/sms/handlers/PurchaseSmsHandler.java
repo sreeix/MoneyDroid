@@ -37,6 +37,6 @@ public class PurchaseSmsHandler implements Handler {
 		String dateOfAvailableBalance = matcher.group(3);
 		String availableBalance = matcher.group(4);
 		
-		return Purchase.Builder.purchaseTransaction().forAmount(debitedAmount).withAvailableBalance(availableBalance).on(dateOfAvailableBalance.trim()).create();
+		return Purchase.Builder.purchaseTransaction().forAmount(debitedAmount).withAvailableBalance(availableBalance).on(dateOfAvailableBalance.trim()).fromVendor(vendor).create();
 	}
 }

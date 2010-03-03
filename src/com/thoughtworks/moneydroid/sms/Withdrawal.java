@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.thoughtworks.moneydroid.transaction.Money;
 import com.thoughtworks.moneydroid.transaction.Transaction;
+import com.thoughtworks.moneydroid.transaction.Vendor;
 
 public class Withdrawal extends Transaction{
 
@@ -21,6 +22,12 @@ public class Withdrawal extends Transaction{
 
 	@Override
 	public Date date() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Vendor vendor() {
 		// TODO Auto-generated method stub
 		return null;
 	}

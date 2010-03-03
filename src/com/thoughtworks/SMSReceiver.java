@@ -13,6 +13,7 @@ public class SMSReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context ctx, Intent intent) {
+		
 		System.setProperty("log.tag.MessageSPAM", "INFO");
 		System.setProperty("log.tag.expenseTracker", "INFO");
 		Log.d("MessageSPAM", "Received some SMS");

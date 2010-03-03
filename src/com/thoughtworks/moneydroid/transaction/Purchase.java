@@ -1,6 +1,5 @@
 package com.thoughtworks.moneydroid.transaction;
 
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -32,6 +31,11 @@ public class Purchase extends Transaction {
 	@Override
 	public Date date() {
 		return date;
+	}
+
+	@Override
+	public Vendor vendor() {
+		return vendor;
 	}
 
 	public static class Builder {
@@ -78,6 +82,10 @@ public class Purchase extends Transaction {
 				e.printStackTrace();
 			}
 			return this;
+		}
+
+		public Builder fromVendor(String vendor) {
+			return withVendor(new Vendor(vendor));
 		}
 	}
 

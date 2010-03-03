@@ -20,4 +20,10 @@ public class NullTransaction extends Transaction {
 		return new Date();
 	}
 
+	@Override
+	public Vendor vendor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

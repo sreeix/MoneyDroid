@@ -9,5 +9,7 @@ public abstract class Transaction {
 	public abstract Money availableBalance();
 
 	public abstract Date date();
+	
+	public abstract Vendor vendor();
 
 }

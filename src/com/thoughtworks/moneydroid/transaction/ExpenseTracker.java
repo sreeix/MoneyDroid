@@ -51,10 +51,10 @@ public class ExpenseTracker {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(Expense._AMOUNT, String.valueOf(transaction.amount()));
 		contentValues.put(Expense._BALANCE, String.valueOf(transaction.availableBalance()));
-		contentValues.put(Vendor._NAME, "Dummy Vendor");
+		contentValues.put(Expense._DATE, String.valueOf(transaction.date()));
+		contentValues.put(Vendor._NAME, transaction.vendor().toString());
 
 		context.getContentResolver().insert(ExpenseTracker.CONTENT_URI, contentValues);
-
 		return transaction;
 	}
 
