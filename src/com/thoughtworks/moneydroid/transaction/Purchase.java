@@ -29,6 +29,7 @@ public class Purchase extends Transaction {
 		return new Money(debitedAmount.doubleValue());
 	}
 
+	@Override
 	public Date date() {
 		return date;
 	}
@@ -72,7 +73,7 @@ public class Purchase extends Transaction {
 
 		public Builder on(String dateOfAvailableBalance) {
 			try {
-				purchase.date = new SimpleDateFormat("MMM dd yyyy hh:mm a z").parse(dateOfAvailableBalance.trim());
+				purchase.date = new SimpleDateFormat("MMM dd yyyy hh:mm a").parse(dateOfAvailableBalance.trim());
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}

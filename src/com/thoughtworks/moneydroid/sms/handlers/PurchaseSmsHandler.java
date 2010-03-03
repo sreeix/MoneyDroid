@@ -9,7 +9,7 @@ import com.thoughtworks.moneydroid.transaction.Transaction;
 
 public class PurchaseSmsHandler implements Handler {
 
-	private static final String DEBIT_PURCHASE_TEMPLATE = "You have done a debit purchase of INR ([0-9,.]*) at ([A-Za-z ]*).Available balance as on ([0-9A-Za-z: ]*) is INR ([0-9,.]*)";
+	private static final String DEBIT_PURCHASE_TEMPLATE = "You have done a debit purchase of INR ([0-9,.]*) at ([A-Za-z ]*).Available balance as on ([0-9A-Za-z: ]*) IST is INR ([0-9,.]*)";
 	
 	private final MoneyDroidSmsMessage moneyDroidSmsMessage;
 

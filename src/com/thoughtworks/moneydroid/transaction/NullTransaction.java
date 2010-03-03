@@ -1,6 +1,8 @@
 package com.thoughtworks.moneydroid.transaction;
 
-public class NullTransaction extends Transaction{
+import java.util.Date;
+
+public class NullTransaction extends Transaction {
 
 	@Override
 	public Money amount() {
@@ -10,8 +12,12 @@ public class NullTransaction extends Transaction{
 
 	@Override
 	public Money availableBalance() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Money(-1234);
+	}
+
+	@Override
+	public Date date() {
+		return new Date();
 	}
 
 }
