@@ -9,7 +9,7 @@ import com.thoughtworks.moneydroid.transaction.Transaction;
 
 public class PurchaseSmsHandler implements Handler {
 
-	private static final String DEBIT_PURCHASE_TEMPLATE = "You have done a debit purchase of INR ([0-9,.]*) at ([A-Za-z ]*).Available balance as on ([0-9A-Za-z: ]*) IST is INR ([0-9,.]*)";
+	private static final String DEBIT_PURCHASE_TEMPLATE = "You have done a debit purchase[ ]*of INR ([0-9,.]*) at ([A-Za-z ]*). Available balance as on ([0-9A-Za-z: ]*) IST is INR ([0-9,.]*)";
 	
 	private final MoneyDroidSmsMessage moneyDroidSmsMessage;
 
@@ -30,7 +30,7 @@ public class PurchaseSmsHandler implements Handler {
 		Pattern pattern = Pattern.compile(DEBIT_PURCHASE_TEMPLATE);
 		Matcher matcher = pattern.matcher(moneyDroidSmsMessage.getMessage());
 		if(!matcher.find())
-			throw new InvalidSmsFormatException("Invalid format for debit purchase sms");
+			throw new InvalidSmsFormatException(String.format("Invalid format for debit purchase sms:%s",moneyDroidSmsMessage.getMessage()));
 		
 		String debitedAmount = matcher.group(1);
 		String vendor = matcher.group(2);

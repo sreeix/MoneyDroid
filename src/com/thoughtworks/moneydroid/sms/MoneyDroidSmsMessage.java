@@ -1,8 +1,6 @@
 package com.thoughtworks.moneydroid.sms;
 
-
 import android.telephony.gsm.SmsMessage;
-import android.util.Log;
 
 import com.thoughtworks.moneydroid.sms.handlers.PurchaseSmsHandler;
 import com.thoughtworks.moneydroid.transaction.NullTransaction;
@@ -11,13 +9,13 @@ import com.thoughtworks.moneydroid.transaction.Transaction;
 public final class MoneyDroidSmsMessage {
 
 	private final SmsMessage sms;
-	
-	private enum SMS_SENDER{
-		STANDARD_CHARTERED("DM-StanChrt"), HACK_FOR_TESTING("1234");
-		
+
+	private enum SMS_SENDER {
+		STANDARD_CHARTERED("DM-StanChrt"), HACK_FOR_TESTING("1234"), MY_NUMBER("9880551181"), MY_NUMBER_WITH_COUNTRY_CODE("+919880551181");
+
 		private final String name;
 
-		SMS_SENDER(String name){
+		SMS_SENDER(String name) {
 			this.name = name;
 		}
 
@@ -29,10 +27,9 @@ public final class MoneyDroidSmsMessage {
 	public MoneyDroidSmsMessage(android.telephony.gsm.SmsMessage sms) {
 		this.sms = sms;
 	}
-	
+
 	public final boolean isFromMyBank() {
-		boolean isFromMyBank = SMS_SENDER.STANDARD_CHARTERED.isSenderOf(sms) || SMS_SENDER.HACK_FOR_TESTING.isSenderOf(sms);
-		return isFromMyBank;
+		return SMS_SENDER.STANDARD_CHARTERED.isSenderOf(sms) || SMS_SENDER.HACK_FOR_TESTING.isSenderOf(sms) || SMS_SENDER.MY_NUMBER.isSenderOf(sms) || SMS_SENDER.MY_NUMBER_WITH_COUNTRY_CODE.isSenderOf(sms);
 	}
 
 	public final boolean isAWithdrawal() {
@@ -44,12 +41,12 @@ public final class MoneyDroidSmsMessage {
 	}
 
 	public Transaction getTransaction() {
-		if(isAWithdrawal())
-			return new Withdrawal();
-		
-		if(isPurchase())
+		if (isPurchase())
 			return new PurchaseSmsHandler(this).createTransaction();
 		
+		if (isAWithdrawal())
+			return new Withdrawal();
+
 		return new NullTransaction();
 	}
 

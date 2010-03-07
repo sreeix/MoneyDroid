@@ -1,7 +1,5 @@
 package com.thoughtworks.moneydroid.transaction;
 
-import android.content.ContentValues;
-import android.content.Context;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
@@ -13,7 +11,7 @@ public class ExpenseTracker {
 
 	public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/expenses");
 
-	private final Context context;
+	private TransactionRepository transactionRepository;
 
 	public static final class Expense implements BaseColumns {
 
@@ -36,8 +34,8 @@ public class ExpenseTracker {
 		public static final String _NAME = "name";
 	}
 
-	public ExpenseTracker(Context context) {
-		this.context = context;
+	public ExpenseTracker(TransactionRepository transactionRepository) {
+		this.transactionRepository = transactionRepository;
 	}
 
 	public Transaction newExpense(MoneyDroidSmsMessage sms) {
@@ -47,15 +45,8 @@ public class ExpenseTracker {
 		}
 
 		Transaction transaction = sms.getTransaction();
+		transactionRepository.save(transaction);
 
-		ContentValues contentValues = new ContentValues();
-		contentValues.put(Expense._AMOUNT, String.valueOf(transaction.amount()));
-		contentValues.put(Expense._BALANCE, String.valueOf(transaction.availableBalance()));
-		contentValues.put(Expense._DATE, String.valueOf(transaction.date()));
-		contentValues.put(Vendor._NAME, transaction.vendor().toString());
-
-		context.getContentResolver().insert(ExpenseTracker.CONTENT_URI, contentValues);
 		return transaction;
 	}
-
 }

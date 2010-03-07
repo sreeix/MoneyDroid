@@ -77,7 +77,7 @@ public class Purchase extends Transaction {
 
 		public Builder on(String dateOfAvailableBalance) {
 			try {
-				purchase.date = new SimpleDateFormat("MMM dd yyyy hh:mm a").parse(dateOfAvailableBalance.trim());
+				purchase.date = new SimpleDateFormat("MMM dd yyyy hh:mma").parse(dateOfAvailableBalance.trim());
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}

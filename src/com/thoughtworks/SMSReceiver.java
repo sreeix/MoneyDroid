@@ -4,30 +4,30 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.thoughtworks.moneydroid.sms.SmsFactory;
 import com.thoughtworks.moneydroid.transaction.ExpenseTracker;
+import com.thoughtworks.moneydroid.transaction.TransactionRepository;
 
 public class SMSReceiver extends BroadcastReceiver {
 
 	@Override
-	public void onReceive(Context ctx, Intent intent) {
+	public void onReceive(Context context, Intent intent) {
 		
-		System.setProperty("log.tag.MessageSPAM", "INFO");
-		System.setProperty("log.tag.expenseTracker", "INFO");
-		Log.d("MessageSPAM", "Received some SMS");
+//		System.setProperty("log.tag.MessageSPAM", "INFO");
+//		System.setProperty("log.tag.expenseTracker", "INFO");
+//		Log.d("MessageSPAM", "Received some SMS");
 		Bundle bundle = intent.getExtras();
 
-		Log.d("MessageSPAM", "wee");
+//		Log.d("MessageSPAM", "wee");
 		if (bundle == null){
-			Log.d("MessageSPAM", "returning cos bundle == null");
+//			Log.d("MessageSPAM", "returning cos bundle == null");
 			return;
 		}
 
-		Log.d("MessageSPAM", "Not returning");
+//		Log.d("MessageSPAM", "Not returning");
 		
-		new ExpenseTracker(ctx).newExpense(makeSms(bundle));
+		new ExpenseTracker(new TransactionRepository(context.getContentResolver())).newExpense(makeSms(bundle));
 
 	}
 
