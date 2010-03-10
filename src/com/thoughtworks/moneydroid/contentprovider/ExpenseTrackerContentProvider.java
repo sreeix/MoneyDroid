@@ -188,7 +188,7 @@ public class ExpenseTrackerContentProvider extends ContentProvider {
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 		SQLiteQueryBuilder sqLiteQueryBuilder = new SQLiteQueryBuilder();
-		sqLiteQueryBuilder.setTables(EXPENSES_TABLE_NAME);
+		sqLiteQueryBuilder.setTables(String.format("%s,%s",EXPENSES_TABLE_NAME,VENDORS_TABLE_NAME));
 
 		SQLiteDatabase readableDatabase = databaseHelper.getReadableDatabase();
 /*		HashMap<String, String> projectionMap = new HashMap<String, String>();
