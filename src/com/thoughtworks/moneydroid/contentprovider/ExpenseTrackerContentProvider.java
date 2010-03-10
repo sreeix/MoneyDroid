@@ -13,7 +13,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
-import android.util.Log;
 
 import com.thoughtworks.moneydroid.transaction.ExpenseTracker;
 import com.thoughtworks.moneydroid.transaction.ExpenseTracker.Category;
@@ -72,7 +71,9 @@ public class ExpenseTrackerContentProvider extends ContentProvider {
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-//			Log.w("ExpenseTracker", String.format("Upgrading database from %d to %d", oldVersion, newVersion));
+			// Log.w("ExpenseTracker",
+			// String.format("Upgrading database from %d to %d", oldVersion,
+			// newVersion));
 			db.execSQL(String.format("DROP DATABASE IF EXISTS %s", DATABASE_NAME));
 			onCreate(db);
 		}
@@ -97,7 +98,7 @@ public class ExpenseTrackerContentProvider extends ContentProvider {
 			throw new IllegalArgumentException(String.format("Unknown Argument %s", uri));
 		}
 
-//		Log.d("MessageSPAM", "preparing to create new expense");
+		// Log.d("MessageSPAM", "preparing to create new expense");
 		return notifyObserversAboutTheNewExpense(uri, insertNewExpense(uri, initialValues, findVendor(initialValues)));
 	}
 
@@ -115,10 +116,11 @@ public class ExpenseTrackerContentProvider extends ContentProvider {
 		Cursor cursor = sqLiteQueryBuilder.query(readableDatabase, null, null, null, null, null, null);
 
 		if (cursor.getCount() > 1)
-			throw new ExpenseTrackerException(String.format("Found %d vendors with name %s", cursor.getCount(),(String) initialValues.get(Vendor._NAME)));
+			throw new ExpenseTrackerException(String.format("Found %d vendors with name %s", cursor.getCount(), (String) initialValues.get(Vendor._NAME)));
 
-//		if (Log.isLoggable("expenseTracker", Log.DEBUG))
-//			Log.d("expenseTracker", String.format("found %d vendors", cursor.getCount()));
+		// if (Log.isLoggable("expenseTracker", Log.DEBUG))
+		// Log.d("expenseTracker", String.format("found %d vendors",
+		// cursor.getCount()));
 
 		if (cursor.getCount() == 0)
 			return insertNewVendor(initialValues);
@@ -128,9 +130,11 @@ public class ExpenseTrackerContentProvider extends ContentProvider {
 		int vendorIdColumnIndex = cursor.getColumnIndex(Vendor._ID);
 		long vendorId = cursor.getLong(vendorIdColumnIndex);
 
-/*		if (Log.isLoggable("expenseTracker", Log.DEBUG))
-			Log.d("expenseTracker", String.format("Created new vendor with id %d", vendorId));
-*/
+		/*
+		 * if (Log.isLoggable("expenseTracker", Log.DEBUG))
+		 * Log.d("expenseTracker",
+		 * String.format("Created new vendor with id %d", vendorId));
+		 */
 		return vendorId;
 	}
 
@@ -166,7 +170,8 @@ public class ExpenseTrackerContentProvider extends ContentProvider {
 		contentValues.put(Expense._DATE, initialValues.getAsString(Expense._DATE));
 
 		long rowId = writableDatabase.insert(EXPENSES_TABLE_NAME, "null", contentValues);
-//		Log.d("MessageSPAM", String.format("Inserted new expense with id %d", rowId));
+		// Log.d("MessageSPAM", String.format("Inserted new expense with id %d",
+		// rowId));
 
 		if (rowId <= 0)
 			throw new SQLException(String.format("Failed to insert row into %s", uri));
@@ -182,8 +187,18 @@ public class ExpenseTrackerContentProvider extends ContentProvider {
 
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-		// TODO Auto-generated method stub
-		return null;
+		SQLiteQueryBuilder sqLiteQueryBuilder = new SQLiteQueryBuilder();
+		sqLiteQueryBuilder.setTables(EXPENSES_TABLE_NAME);
+
+		SQLiteDatabase readableDatabase = databaseHelper.getReadableDatabase();
+/*		HashMap<String, String> projectionMap = new HashMap<String, String>();
+		projectionMap.put(Expense._ID, Expense._ID);
+		projectionMap.put(Expense._AMOUNT, Expense._AMOUNT);
+		projectionMap.put(Expense._BALANCE, Expense._BALANCE);
+*/
+		Cursor cursor = sqLiteQueryBuilder.query(readableDatabase, projection, selection, selectionArgs, null, null, sortOrder);
+		cursor.setNotificationUri(getContext().getContentResolver(), ExpenseTracker.CONTENT_URI);
+		return cursor;
 	}
 
 	@Override

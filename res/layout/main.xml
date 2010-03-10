@@ -6,7 +6,6 @@
     >
 <TextView  android:id="@+id/my_monetary_view"
     android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/message_spam"
+    android:layout_height="wrap_content"
     />
 </LinearLayout>
