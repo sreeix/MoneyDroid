@@ -188,14 +188,9 @@ public class ExpenseTrackerContentProvider extends ContentProvider {
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 		SQLiteQueryBuilder sqLiteQueryBuilder = new SQLiteQueryBuilder();
-		sqLiteQueryBuilder.setTables(String.format("%s,%s",EXPENSES_TABLE_NAME,VENDORS_TABLE_NAME));
-
+		sqLiteQueryBuilder.setTables(String.format("%s INNER JOIN %s on (%s._id = %s.vendor_id)",VENDORS_TABLE_NAME,EXPENSES_TABLE_NAME,VENDORS_TABLE_NAME, EXPENSES_TABLE_NAME));
 		SQLiteDatabase readableDatabase = databaseHelper.getReadableDatabase();
-/*		HashMap<String, String> projectionMap = new HashMap<String, String>();
-		projectionMap.put(Expense._ID, Expense._ID);
-		projectionMap.put(Expense._AMOUNT, Expense._AMOUNT);
-		projectionMap.put(Expense._BALANCE, Expense._BALANCE);
-*/
+		
 		Cursor cursor = sqLiteQueryBuilder.query(readableDatabase, projection, selection, selectionArgs, null, null, sortOrder);
 		cursor.setNotificationUri(getContext().getContentResolver(), ExpenseTracker.CONTENT_URI);
 		return cursor;

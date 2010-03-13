@@ -11,7 +11,7 @@ public final class MoneyDroidSmsMessage {
 	private final SmsMessage sms;
 
 	private enum SMS_SENDER {
-		STANDARD_CHARTERED("DM-StanChrt"), HACK_FOR_TESTING("1234"), MY_NUMBER("9880551181"), MY_NUMBER_WITH_COUNTRY_CODE("+919880551181");
+		DM_STANDARD_CHARTERED("DM-StanChrt"), TA_STANDARD_CHARTERED("TA-StanChrt"),HACK_FOR_TESTING("1234"), MY_NUMBER("9880551181"), MY_NUMBER_WITH_COUNTRY_CODE("+919880551181");
 
 		private final String name;
 
@@ -29,7 +29,7 @@ public final class MoneyDroidSmsMessage {
 	}
 
 	public final boolean isFromMyBank() {
-		return SMS_SENDER.STANDARD_CHARTERED.isSenderOf(sms) || SMS_SENDER.HACK_FOR_TESTING.isSenderOf(sms) || SMS_SENDER.MY_NUMBER.isSenderOf(sms) || SMS_SENDER.MY_NUMBER_WITH_COUNTRY_CODE.isSenderOf(sms);
+		return SMS_SENDER.DM_STANDARD_CHARTERED.isSenderOf(sms) || SMS_SENDER.TA_STANDARD_CHARTERED.isSenderOf(sms) || SMS_SENDER.HACK_FOR_TESTING.isSenderOf(sms) || SMS_SENDER.MY_NUMBER.isSenderOf(sms) || SMS_SENDER.MY_NUMBER_WITH_COUNTRY_CODE.isSenderOf(sms);
 	}
 
 	public final boolean isAWithdrawal() {

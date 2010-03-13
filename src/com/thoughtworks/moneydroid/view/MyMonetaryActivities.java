@@ -23,7 +23,8 @@ public class MyMonetaryActivities extends Activity {
 		Cursor cursor = managedQuery(ExpenseTracker.CONTENT_URI, projections, null, null, Expense._DATE + " DESC");
 
 		if (cursor.moveToFirst()) {
-
+			myMonetaryViews.append(String.format("found %d transactions:",cursor.getCount()));
+			myMonetaryViews.append("-----------------------------------------");
 			do {
 				myMonetaryViews.append(String.format("Date:%s|", cursor.getString(cursor.getColumnIndex(Expense._DATE))));
 				myMonetaryViews.append(String.format(" Amount:%s\n", cursor.getString(cursor.getColumnIndex(Expense._AMOUNT))));
