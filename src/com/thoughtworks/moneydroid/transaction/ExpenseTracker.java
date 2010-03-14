@@ -3,6 +3,7 @@ package com.thoughtworks.moneydroid.transaction;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+import com.thoughtworks.moneydroid.contentprovider.ExpenseTrackerContentProvider;
 import com.thoughtworks.moneydroid.sms.MoneyDroidSmsMessage;
 
 public class ExpenseTracker {
@@ -22,6 +23,7 @@ public class ExpenseTracker {
 		public static final String _DATE = "date";
 		public static final String _BALANCE = "balance";
 		public static final String _VENDOR_ID = "vendor_id";
+		public static final String _EXPENSE_ID_WITH_TABLE = String.format("%s.%s",ExpenseTrackerContentProvider.EXPENSES_TABLE_NAME,_ID);
 
 	}
 

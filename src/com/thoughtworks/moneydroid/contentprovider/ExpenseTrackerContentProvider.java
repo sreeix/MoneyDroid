@@ -22,7 +22,7 @@ import com.thoughtworks.moneydroid.transaction.ExpenseTracker.Vendor;
 public class ExpenseTrackerContentProvider extends ContentProvider {
 
 	private static final String DATABASE_NAME = "expense_tracker.db";
-	private static final String EXPENSES_TABLE_NAME = "transactions";
+	public static final String EXPENSES_TABLE_NAME = "transactions";
 	private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 	private final static int EXPENSES = 1;
 	private static final int VENDORS = 2;
