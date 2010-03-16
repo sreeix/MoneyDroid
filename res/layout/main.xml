@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
-	<!--
-		TextView android:id="@+id/my_monetary_view"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content" /
-	-->
-	<ListView android:id="@android:id/list"
-		android:layout_width="fill_parent" android:layout_height="wrap_content" />
-</LinearLayout>
+	
+	<TextView android:id="@+id/vendor"
+		android:layout_width="fill_parent" style="@style/InYourFaceFont" android:layout_height="wrap_content" />
+
+	<TextView android:id="@+id/purchaseDate"
+		style="@style/GreenFont" android:paddingRight="10dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@id/vendor" />		
+		
+	<TextView android:id="@+id/amount"
+		android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@id/vendor" android:layout_toRightOf="@+id/purchaseDate"/>		
+
+		
+</RelativeLayout>

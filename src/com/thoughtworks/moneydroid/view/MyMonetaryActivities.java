@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.SimpleCursorAdapter;
 
+import com.thoughtworks.R;
 import com.thoughtworks.moneydroid.transaction.ExpenseTracker;
 import com.thoughtworks.moneydroid.transaction.ExpenseTracker.Expense;
 import com.thoughtworks.moneydroid.transaction.ExpenseTracker.Vendor;
@@ -14,7 +15,7 @@ public class MyMonetaryActivities extends ListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		setContentView(R.layout.main);
+		// setContentView(R.layout.main);
 
 		/*
 		 * TextView myMonetaryViews = (TextView)
@@ -44,19 +45,7 @@ public class MyMonetaryActivities extends ListActivity {
 		String[] projections = new String[] { Expense._EXPENSE_ID_WITH_TABLE, Expense._DATE, Expense._AMOUNT, Expense._BALANCE, Expense._VENDOR_ID, Vendor._NAME };
 		Cursor cursor = managedQuery(ExpenseTracker.CONTENT_URI, projections, null, null, Expense._DATE + " DESC");
 
-//		List<String> expenses = new ArrayList<String>();
-//		if(cursor.moveToFirst()){
-//			
-//			do{
-//				expenses.add(expensePreview(cursor));
-//			}while(cursor.moveToNext());
-//		}
-		setListAdapter(new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2, cursor, new String[] { Vendor._NAME, Expense._AMOUNT }, new int[] { android.R.id.text1,android.R.id.text2 }));
-//		setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,expenses));
+		setListAdapter(new SimpleCursorAdapter(this, R.layout.main, cursor, new String[] { Vendor._NAME, Expense._DATE , Expense._AMOUNT }, new int[] { R.id.vendor, R.id.amount, R.id.purchaseDate}));
 		getListView().setTextFilterEnabled(true);
-	}
-
-	private String expensePreview(Cursor cursor) {
-		return String.format("%s:%s",cursor.getString(cursor.getColumnIndex(Vendor._NAME)), cursor.getString(cursor.getColumnIndex(Expense._AMOUNT)));
 	}
 }
